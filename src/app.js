@@ -9,6 +9,8 @@ const tasksRoutes = require('./routes/tasks')
 const app = express();
 app.set('port', 4000);
 
+app.use(express.static(__dirname + '/static'));
+
 app.use(bodyParser.urlencoded(
     {extended: true}
 ));

@@ -1,0 +1,37 @@
+body{
+    background-color: #a1a1a1;
+}
+
+.all-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 5vw;
+}
+
+.articles-container{
+    display: grid;
+    gap: 1vw;
+    justify-content: center;
+    grid-template-columns: 20vw 20vw 20vw 20vw;
+    width: 86vw;
+    min-height: 100vh;
+    background-color: #2e2e2e;
+    border-radius: 25px 25px 0 0;
+}
+
+.articles{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 20vw;
+    list-style: none;
+    background-color: rgba(255, 255, 255, 0.842);
+    margin-top: 1vw;
+    border-radius: 25px;
+    max-height: 10vw;
+}
+
+.article{
+    color: black;
+    
+}

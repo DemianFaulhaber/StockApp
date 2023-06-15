@@ -1,13 +1,16 @@
+<link rel="stylesheet" href="/css/articles.css">
 <tbody>
-    <div class="container text-center border border-primary-subtle rounded-3 p-3">
-        {{#each productos}}
-        <ul style="list-style: none">
-            <li class="text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">id:{{id}}</li>
-            <li class="text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">codigo:{{codigo}}</li>
-            <li class="text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">nombre:{{nombre}}</li>
-            <li class="text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">precio:{{precio}}</li>
-            <li class="text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">stock:{{stock}}</li>
-        </ul>
-        {{/each}}
+    <div class="all-container">
+        <div class="articles-container">
+            {{#each productos}}
+            <ul class="articles">
+                <li class="article">id:{{id}}</li>
+                <li class="article">codigo:{{codigo}}</li>
+                <li class="article">nombre:{{nombre}}</li>
+                <li class="article">precio:{{precio}}</li>
+                <li class="article">stock:{{stock}}</li>
+            </ul>
+            {{/each}}
+        </div>
     </div>
 </tbody>
