@@ -1,11 +1,6 @@
 <tbody>
-    <div class="container text-center">
-        <form action="tasks/search" method="GET">
-            <input type="text" name="codigo" placeholder="search...">
-        </form>
-    </div>
-    {{#each productos}}
     <div class="container text-center border border-primary-subtle rounded-3 p-3">
+        {{#each productos}}
         <ul style="list-style: none">
             <li class="text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">id:{{id}}</li>
             <li class="text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">codigo:{{codigo}}</li>
@@ -13,6 +8,6 @@
             <li class="text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">precio:{{precio}}</li>
             <li class="text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">stock:{{stock}}</li>
         </ul>
+        {{/each}}
     </div>
-    {{/each}}
 </tbody>

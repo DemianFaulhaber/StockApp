@@ -8,8 +8,20 @@ function index(req, res){
             res.render('tasks/index', { productos });
         });
     });
+}
 
-
+function search(req, res){
+    const codigo = req.query.codigo;
+    console.log(codigo)
+    req.getConnection((err,conn) => {
+        conn.query("SELECT * FROM productos WHERE codigo = ?", [codigo], (err, productos) => {
+            if(err){
+                res.json(err);
+            }
+            console.log(productos)
+            res.render('tasks/search', {productos});
+        });
+    });
 }
 
 function agregar(req, res){
@@ -31,20 +43,9 @@ function store(req, res){
 }
 
 
-// function searchall(req, res) {
-    // const data = req.body;
-
-    // req.getConnection((err, conn) => {
-    //     conn.query('SELECT * FROM ?', [data], (err, rows) =>{
-    //         console.log(rows);
-//         })
-//     })
-// }
-
-
 module.exports = {
     index: index,
-    // search: search,
+    search: search,
     venta: venta,
     store: store,
     agregar: agregar,
