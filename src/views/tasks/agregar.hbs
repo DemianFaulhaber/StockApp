@@ -7,3 +7,9 @@
     <input type="text" name="presentacion" placeholder="presentacion"> 
     <button type="submit">submit</button>
 </form>
+{{#each productos}}
+    <p>ya existe un producto con el código {{codigo}}</p>
+{{/each}}
+{{#messages}}
+    <p>completar campos faltantes</p>
+{{/messages}}

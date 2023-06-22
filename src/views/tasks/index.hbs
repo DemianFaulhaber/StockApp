@@ -9,11 +9,10 @@
         <div class="articles-container">
         {{#each productos}}
             <ul class="articles">
-                <li class="article">id:{{id}}</li>
-                <li class="article">codigo:{{codigo}}</li>
-                <li class="article">nombre:{{nombre}}</li>
-                <li class="article">precio:{{precio}}</li>
-                <li class="article">stock:{{stock}}</li>
+                <li class="article">codigo:<b>{{codigo}}</b></li>
+                <li class="article">nombre:<b>{{nombre}} x{{presentacion}}kg</b></li>
+                <li class="article">precio:<b>${{precio}}</b></li>
+                <li class="article">stock:<b>{{stock}}</b></li>
             </ul>
         {{/each}}
         </div>
