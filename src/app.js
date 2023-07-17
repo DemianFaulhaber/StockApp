@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session')
 const {engine} = require('express-handlebars');
 const myconnection = require('express-myconnection');
 const bodyParser = require('body-parser');
@@ -7,6 +8,13 @@ const tasksRoutes = require('./routes/tasks')
 
 
 const app = express();
+
+app.use(session({
+    secret: 'contraseña',
+    resave: false,
+    saveUninitialized: true
+}));
+
 app.set('port', 4000);
 
 app.use(express.static(__dirname + '/static'));
