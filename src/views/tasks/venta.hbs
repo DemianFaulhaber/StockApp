@@ -1,6 +1,6 @@
 <tbody>
     <style>.articles{display:inline-block;}</style>
-    <form action="">
+    <form method="get" action="http://localhost:4000/venta">
         <input type="text" name="codigo">
     </form>
     {{#each data}}
@@ -11,5 +11,7 @@
             <li class="article">stock:<b>{{stock}}</b></li>
         </ul>
     {{/each}}
-    {{!-- <script src="venta.js"></script> --}}
+    {{#message}}
+        <p>{{message}}</p>
+    {{/message}}
 </tbody>

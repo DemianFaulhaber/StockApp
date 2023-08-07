@@ -9,6 +9,9 @@ const tasksRoutes = require('./routes/tasks')
 
 const app = express();
 
+const router = express.Router();
+
+
 app.use(session({
     secret: 'contraseña',
     resave: false,
@@ -38,6 +41,27 @@ app.use(myconnection(mysql, {
     database: 'stockapp'
 }, 'single'))
 
+
+app.post('/venta', function(req,res){
+    const data = req.body
+
+    // console.log(data)
+
+    function guardarCodigoEnSesion(req, codigo) {
+        if (!req.session.codigos) {
+            req.session.codigos = [codigo];
+        } else {
+            req.session.codigos.push(codigo);
+        }
+    }
+
+    guardarCodigoEnSesion(req, data)
+
+    // console.log(req.session.codigos)
+    res.render('tasks/venta')
+});
+
+
 app.listen(app.get('port'), () => {
     console.log('listening on port', app.get('port'));
 });
@@ -47,3 +71,4 @@ app.use('/', tasksRoutes);
 app.get('/', (req, res) =>{
     res.render('home');
 })
+

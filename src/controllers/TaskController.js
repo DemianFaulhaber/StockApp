@@ -1,10 +1,13 @@
+const express = require('express')
+
+const app = express()
+
 function index(req, res){
     req.getConnection((err, conn) => {
-        conn.query('SELECT * FROM productos', (err, productos) => {
+        conn.query('SELECT * FROM productos WHERE visible = 1', (err, productos) => {
             if(err){
                 res.json(err);
             }
-            console.log(productos);
             res.render('tasks/index', { productos });
         });
     });
@@ -14,7 +17,7 @@ function search(req, res){
     const nombre = req.query.nombre;
     console.log(req.query)
     req.getConnection((err,conn) => {
-        conn.query("SELECT * FROM productos WHERE nombre = ?", [nombre], (err, productos) => {
+        conn.query("SELECT * FROM productos WHERE codigo = ? OR nombre = ? AND visible = 1", [nombre, nombre], (err, productos) => {
             if(err){
                 res.json(err);
             }
@@ -22,6 +25,14 @@ function search(req, res){
             res.render('tasks/search',{productos});
         });
     });
+}
+
+function erase(req, res){
+    const codigo = req.params.codigo
+    req.getConnection((err, conn) =>{
+        conn.query("UPDATE productos SET visible = 0 WHERE codigo = ?", [codigo])
+    })
+    res.send({response:'OK'})
 }
 
 // function nueva_venta(req, res){
@@ -42,41 +53,53 @@ function search(req, res){
 function agregar(req, res){
     res.render('tasks/agregar');
 }
-function guardarProductoEnSesion(req, producto) {
-    if (!req.session.productos) {
-        req.session.productos = [producto];
-        // console.log(req.session.productos)
-        console.log("se creo un nuevo array")
-    } else {
-        req.session.productos.push(producto);
-        // console.log(req.session.productos)
-    }
-}
+
+// function guardarProductoEnSesion(req, producto) {
+//     if (!req.session.productos) {
+//         req.session.productos = [producto];
+//         // console.log(req.session.productos)
+//         console.log("se creo un nuevo array")
+//     } else {
+//         req.session.productos.push(producto);
+//         // console.log(req.session.productos)
+//     }
+// }
+
 
 function venta(req, res){
-    const codigo = req.query.codigo;
-    req.getConnection((err,conn) => {
-        conn.query("SELECT * FROM productos WHERE codigo = ?", [codigo], (err, productos) => {
-            if(err){
-                res.json(err);
-            }
-            if(productos.length > 0){
-                console.log(productos)
-                const producto = productos[0];
-                guardarProductoEnSesion(req, producto);
-                const data = (req.session.productos)
-                // console.log(data[0])
-                res.render('tasks/venta', {data})
-            }
-            else{
-                res.render('tasks/venta')
-                console.log("the array it's empty")
-            }
-            productos.splice(0, productos.length)
-        });
-    });
+    try{
+        codigos = req.session.codigos
+        // console.log(codigos)
+        codigos.forEach(e => {
+            const codigo = e.codigo
+            console.log(codigo)
+                req.getConnection((err,conn) => {
+                    conn.query("SELECT * FROM productos WHERE codigo = ?", [codigo], (err, productos) => {
+                        if(err){
+                            res.json(err);
+                        }
+                        if(productos.length > 0){
+                            const data = productos
+                            // console.log(data)
+                            res.render('tasks/venta', {data});
+                        }
+                        else{
+                            const data = req.session.productos;
+                            const message = {
+                                message:'product not found'
+                            }
+                            // res.render('tasks/venta', {message, data})
+                            console.log("product not found")
+                        }
+                    });
+                })
+            });
+    }
+    catch{
+        res.render('tasks/venta')
+        console.log("catcheo")
+    }
 }
-
 
 function store(req, res){
     const data = req.body;
@@ -106,9 +129,9 @@ function store(req, res){
 module.exports = {
     index: index,
     search: search,
-    venta: venta,
     store: store,
     agregar: agregar,
-    // nueva_venta: nueva_venta,
+    venta:venta,
+    erase:erase,
 }
 

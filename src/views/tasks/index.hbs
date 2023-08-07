@@ -13,8 +13,20 @@
                 <li class="article">nombre:<b>{{nombre}} x{{presentacion}}kg</b></li>
                 <li class="article">precio:<b>${{precio}}</b></li>
                 <li class="article">stock:<b>{{stock}}</b></li>
+                <li class="article"><button class="trashcan" data-codigo="{{codigo}}"><i class="bi bi-trash"></i></button></li>
             </ul>
         {{/each}}
         </div>
     </div>
+    <script>
+        const trashcans = document.getElementsByClassName("trashcan")
+        for(let trashcan of trashcans){
+            const cod = trashcan.dataset.codigo
+            trashcan.addEventListener("click", function(){
+                let booleano = confirm("queres borrar " + trashcan.dataset.codigo + "?")
+                fetch("/erase/"+cod).then(response => response.json()).then(window.location.reload())
+                .catch(e => console.log(e))
+            })
+        }
+    </script>
 </tbody>
