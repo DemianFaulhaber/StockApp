@@ -9,10 +9,10 @@
         <div class="articles-container">
         {{#each productos}}
             <ul class="articles">
-                <li class="article">codigo:<b>{{codigo}}</b></li>
-                <li class="article">nombre:<b>{{nombre}} x{{presentacion}}kg</b></li>
-                <li class="article">precio:<b>${{precio}}</b></li>
-                <li class="article">stock:<b>{{stock}}</b></li>
+                <li class="article">codigo:<b>{{codigo}}</b><button class="edit-code" data-id="{{id}}" data-modifier="codigo"><i class="bi bi-pencil-fill"></i></button></li>
+                <li class="article">nombre:<b>{{nombre}} x{{presentacion}}kg</b><button class="edit-name" data-id="{{id}}" data-modifier="nombre"><i class="bi bi-pencil-fill"></i></button></li>
+                <li class="article">precio:<b>${{precio}}</b><button class="edit-price" data-id="{{id}}" data-modifier="precio"><i class="bi bi-pencil-fill"></i></button></li>
+                <li class="article">stock:<b>{{stock}}</b><button class="edit-stock" data-id="{{id}}" data-modifier="stock"><i class="bi bi-pencil-fill"></i></button></li>
                 <li class="article"><button class="trashcan" data-codigo="{{codigo}}"><i class="bi bi-trash"></i></button></li>
             </ul>
         {{/each}}
@@ -28,5 +28,46 @@
                 .catch(e => console.log(e))
             })
         }
+        const codePencils = document.getElementsByClassName("edit-code")
+        for(let codePencil of codePencils){
+            const id = codePencil.dataset.id
+            const cod = codePencil.dataset.modifier
+            codePencil.addEventListener('click', function(){
+                let info = prompt("Inserte el nuevo código:")
+                fetch("/edit/"+id+"/"+cod+"/"+info).then(response => response.json()).then(window.location.reload())
+                .catch(e => console.log(e))
+            })
+        }
+        const namePencils = document.getElementsByClassName("edit-name")
+        for(let namePencil of namePencils){
+            const id = namePencil.dataset.id
+            const cod = namePencil.dataset.modifier
+            namePencil.addEventListener('click', function(){
+                let info = prompt("Inserte el nuevo código:")
+                fetch("/edit/"+id+"/"+cod+"/"+info).then(response => response.json()).then(window.location.reload())
+                .catch(e => console.log(e))
+            })
+        }
+        const pricePencils = document.getElementsByClassName("edit-price")
+        for(let pricePencil of pricePencils){
+            const id = pricePencil.dataset.id
+            const cod = pricePencil.dataset.modifier
+            pricePencil.addEventListener('click', function(){
+                let info = prompt("Inserte el nuevo código:")
+                fetch("/edit/"+id+"/"+cod+"/"+info).then(response => response.json()).then(window.location.reload())
+                .catch(e => console.log(e))
+            })
+        }
+        const stockPencils = document.getElementsByClassName("edit-stock")
+        for(let stockPencil of stockPencils){
+            const id = stockPencil.dataset.id
+            const cod = stockPencil.dataset.modifier
+            stockPencil.addEventListener('click', function(){
+                let info = prompt("Inserte el nuevo código:")
+                fetch("/edit/"+id+"/"+cod+"/"+info).then(response => response.json()).then(window.location.reload())
+                .catch(e => console.log(e))
+            })
+        }
+
     </script>
 </tbody>

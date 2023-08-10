@@ -35,6 +35,20 @@ function erase(req, res){
     res.send({response:'OK'})
 }
 
+
+function edit(req,res){
+    const article = req.params.id
+    const editable = req.params.modifier
+    const info = req.params.info
+    req.getConnection((err,conn) =>{
+        conn.query("UPDATE productos SET ?? = ? WHERE id = ?", [editable, info, article])
+    })
+    res.send({respones:'OK'})
+}
+
+
+
+
 // function nueva_venta(req, res){
 //     const codigo = req.query.codigo;
 //     const venta = [];
@@ -133,5 +147,6 @@ module.exports = {
     agregar: agregar,
     venta:venta,
     erase:erase,
+    edit:edit
 }
 

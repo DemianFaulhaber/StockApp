@@ -10,6 +10,7 @@ router.get('/venta', TaskController.venta);
 router.get('/agregar', TaskController.agregar);
 router.post('/agregar', TaskController.store);
 router.get('/erase/:codigo', TaskController.erase)
+router.get('/edit/:id/:modifier/:info', TaskController.edit)
 
 
 module.exports = router;
