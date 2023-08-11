@@ -1,17 +1,36 @@
 <tbody>
-    <style>.articles{display:inline-block;}</style>
-    <form method="get" action="http://localhost:4000/venta">
-        <input type="text" name="codigo">
-    </form>
-    {{#each data}}
-        <ul class="articles">
-            <li class="article">codigo:<b>{{codigo}}</b></li>
-            <li class="article" id="nombre">nombre:<b>{{nombre}} x{{presentacion}}kg</b></li>
-            <li class="article" id="precio">precio:<b>${{precio}}</b></li>
-            <li class="article">stock:<b>{{stock}}</b></li>
-        </ul>
-    {{/each}}
-    {{#message}}
-        <p>{{message}}</p>
-    {{/message}}
+    <style>.articles{display:inline-block; background-color: black; color: white; border: 1px solid white;}</style>
+    <input type="text" name="codigo" id="codinp">
+    <button id="search">search</button>
+        <div id="content">
+
+        </div>
+    <button id="generarventa">next</button>
+    <script>
+        const codinp = document.getElementById("codinp")
+        const searchb = document.getElementById("search")
+        const content = document.getElementById("content")
+        const generarventa = document.getElementById("generarventa")
+        searchb.addEventListener('click', function(){
+            const cod = codinp.value
+            content.innerHTML = ""
+            fetch('nuevaventa/'+cod).then(response => response.json()).then(response => response.productos.forEach((e) => {
+                const nombre = document.createElement('li')
+                const precio = document.createElement('li')
+                const list = document.createElement ('ul')
+                nombre.textContent = e.name
+                precio.textContent = e.price
+                list.classList = 'articles'
+                nombre.classList = "article"
+                precio.classList = "article"
+                list.appendChild(nombre)
+                list.appendChild(precio)
+                content.appendChild(list)
+            }))
+            .catch(e => console.log(e))
+        })
+        generarventa.addEventListener('click', function(){
+            fetch('almacenarventa').then(response => response.json()).then(r => console.log(r))
+        })
+    </script>
 </tbody>

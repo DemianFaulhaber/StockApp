@@ -11,7 +11,8 @@ router.get('/agregar', TaskController.agregar);
 router.post('/agregar', TaskController.store);
 router.get('/erase/:codigo', TaskController.erase)
 router.get('/edit/:id/:modifier/:info', TaskController.edit)
-
+router.get('/nuevaventa/:codigo', TaskController.nuevaventa)
+router.get('/almacenarventa/', TaskController.almacenarventa)
 
 module.exports = router;
 

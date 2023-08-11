@@ -29,10 +29,10 @@ function search(req, res){
 
 function erase(req, res){
     const codigo = req.params.codigo
-    req.getConnection((err, conn) =>{
-        conn.query("UPDATE productos SET visible = 0 WHERE codigo = ?", [codigo])
-    })
-    res.send({response:'OK'})
+        req.getConnection((err, conn) =>{
+            conn.query("UPDATE productos SET visible = 0 WHERE codigo = ?", [codigo])
+        })
+        res.send({response:'OK'})
 }
 
 
@@ -46,73 +46,33 @@ function edit(req,res){
     res.send({respones:'OK'})
 }
 
-
-
-
-// function nueva_venta(req, res){
-//     const codigo = req.query.codigo;
-//     const venta = [];
-//     console.log(codigo)
-//     req.getConnection((err,conn) => {
-//         conn.query("SELECT * FROM productos WHERE codigo = ?", [codigo], (err, productos) => {
-//             if(err){
-//                 res.json(err);
-//             }
-//             res.render('tasks/nueva_venta', {productos});
-//             console.log(venta)
-//         });
-//     });
-// }
-
 function agregar(req, res){
     res.render('tasks/agregar');
 }
 
-// function guardarProductoEnSesion(req, producto) {
-//     if (!req.session.productos) {
-//         req.session.productos = [producto];
-//         // console.log(req.session.productos)
-//         console.log("se creo un nuevo array")
-//     } else {
-//         req.session.productos.push(producto);
-//         // console.log(req.session.productos)
-//     }
-// }
+function venta(req,res){
+    res.render('tasks/venta')
+}
 
+function nuevaventa(req, res){
+    const article = req.params.codigo
+    req.getConnection((err,conn) =>{
+        conn.query("INSERT INTO venta (name, price, idproducto) SELECT nombre, precio, id FROM productos WHERE codigo = ?", [article])
+        conn.query("SELECT * FROM venta", (err, productos) => {
+            if(err){
+                res.json(err)
+            }
+            res.send({productos})
+        })
+    })
+}
 
-function venta(req, res){
-    try{
-        codigos = req.session.codigos
-        // console.log(codigos)
-        codigos.forEach(e => {
-            const codigo = e.codigo
-            console.log(codigo)
-                req.getConnection((err,conn) => {
-                    conn.query("SELECT * FROM productos WHERE codigo = ?", [codigo], (err, productos) => {
-                        if(err){
-                            res.json(err);
-                        }
-                        if(productos.length > 0){
-                            const data = productos
-                            // console.log(data)
-                            res.render('tasks/venta', {data});
-                        }
-                        else{
-                            const data = req.session.productos;
-                            const message = {
-                                message:'product not found'
-                            }
-                            // res.render('tasks/venta', {message, data})
-                            console.log("product not found")
-                        }
-                    });
-                })
-            });
-    }
-    catch{
-        res.render('tasks/venta')
-        console.log("catcheo")
-    }
+function almacenarventa(req,res){
+    req.getConnection((err, conn) => {
+        conn.query("INSERT INTO ventas (total_amount, productos) SELECT price, name FROM venta")
+        conn.query("DELETE FROM venta")
+    })
+    res.send({response:'OK'})
 }
 
 function store(req, res){
@@ -147,6 +107,8 @@ module.exports = {
     agregar: agregar,
     venta:venta,
     erase:erase,
-    edit:edit
+    edit:edit,
+    nuevaventa:nuevaventa,
+    almacenarventa:almacenarventa
 }
 
