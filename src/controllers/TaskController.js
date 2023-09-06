@@ -1,3 +1,4 @@
+const { json } = require('body-parser');
 const express = require('express')
 
 const app = express()
@@ -17,7 +18,7 @@ function search(req, res){
     const nombre = req.query.nombre;
     console.log(req.query)
     req.getConnection((err,conn) => {
-        conn.query("SELECT * FROM productos WHERE codigo = ? OR nombre = ? AND visible = 1", [nombre, nombre], (err, productos) => {
+        conn.query("SELECT * FROM productos WHERE visible = 1 AND codigo = ? OR nombre LIKE " + "'"+"%"+nombre+"%"+"'", [nombre], (err, productos) => {
             if(err){
                 res.json(err);
             }
@@ -44,6 +45,27 @@ function edit(req,res){
         conn.query("UPDATE productos SET ?? = ? WHERE id = ?", [editable, info, article])
     })
     res.send({respones:'OK'})
+}
+
+function aumentar(req,res){
+    const article = req.params.id
+    const info = req.params.info
+    req.getConnection((err,conn) => {
+        conn.query("SELECT precio FROM productos WHERE id = ?", [article], (err, precio) => {
+            if(err){
+                res.json(err)
+            }
+            stringed = JSON.stringify(precio)
+            parsed = JSON.parse(stringed)
+            price = parsed[0].precio
+            percent = (price * parseInt(info)) / 100
+            newprice = percent + price
+            conn.query("UPDATE productos SET precio = ? WHERE id = ?", [newprice, article])
+            
+        })
+    })
+    res.send({responses:'OK'})
+    // console.log(article) 
 }
 
 function agregar(req, res){
@@ -109,6 +131,7 @@ module.exports = {
     erase:erase,
     edit:edit,
     nuevaventa:nuevaventa,
-    almacenarventa:almacenarventa
+    almacenarventa:almacenarventa,
+    aumentar:aumentar
 }
 

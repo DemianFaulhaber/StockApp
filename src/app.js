@@ -5,12 +5,14 @@ const myconnection = require('express-myconnection');
 const bodyParser = require('body-parser');
 const mysql =  require('mysql');
 const tasksRoutes = require('./routes/tasks')
+const cors = require('cors')
 
 
 const app = express();
 
 const router = express.Router();
 
+app.use(cors())
 
 app.use(session({
     secret: 'contraseña',

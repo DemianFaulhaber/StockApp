@@ -7,6 +7,7 @@
         </form>
     </div>
     <div class="all-container">
+        <input type="checkbox" id="selectall">
         <div class="articles-container">
             {{#each productos}}
             <ul class="articles">
@@ -15,9 +16,36 @@
                 <li class="article">precio:{{precio}}</li>
                 <li class="article">stock:{{stock}}</li>
                 <li class="article"><i class="bi bi-trash"></i></li>
+                <li class="article"><input class="select" type="checkbox"></input></li>
+                <li class="article"><button class="comps" data-precio="{{precio}}">compare</button></li>
             </ul>
 
             {{/each}}
         </div>
     </div>
+    <script>
+        const selectall = document.getElementById("selectall")
+        const selects = document.getElementsByClassName("select")
+        const comps = document.getElementsByClassName("comps")
+        selectall.addEventListener('click', function(){
+            if(selectall.checked === true){
+                for(let select of selects){
+                    select.checked = true
+            }
+                }
+            if(selectall.checked === false){
+                for(let select of selects){
+                    select.checked = false
+                }
+            }
+        })
+        for(let comp of comps){
+            comp.addEventListener('click', function(){
+                const price = comp.dataset.precio
+                let newprice = prompt("inserte el nuevo precio:")
+                let percentdif = ((newprice - price) / price) * 100
+                alert("el producto a aumentado un "+percentdif+"%")
+            })
+        }
+    </script>
 </tbody>

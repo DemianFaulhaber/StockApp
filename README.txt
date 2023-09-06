@@ -1,6 +1,6 @@
 FUNCIONES A IMPLEMENTAR ANTES DE PUBLICAR LA VERSIÖN ALPHA:
 1-Creación de tickets y ejecución de ventas a través de la pestaña de ventas.[LOGICA COMPLETADA]
-2-Edición a gran escala para aumentar precios.
+2-Edición a gran escala para aumentar precios.(comparador de porcentajes)
 3-Reestructuarción de la pestaña para agregar productos(posible incorporación en la pestaña de busqueda).
 4-Almacenamiento de información de ventas a largo plazo con discriminación ente efectivo y otros métodos.[IMPLEMENTADO, ABIERTO A MODIFICACION]
 FUNCIONES A IMPLEMENTAR EN LA BETA:
