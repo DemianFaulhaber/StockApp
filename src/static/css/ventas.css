@@ -1,3 +1,9 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 body{
     background-color: #a1a1a1;
 }
@@ -6,24 +12,27 @@ body{
     display: flex;
     justify-content: center;
     margin-top: 5vw;
+    gap: 1vw;
 }
 
 .articles-container{
-    display: grid;
+    
+    padding: 0;
+    margin: 0;
     gap: 1vw;
     justify-content: center;
-    grid-template-columns: 20vw 20vw 20vw 20vw;
-    width: 86vw;
-    min-height: 100vh;
+    width: 40vw;
+    min-height:75vh;
     background-color: #2e2e2e;
-    border-radius: 25px 25px 0 0;
+    border-radius: 25px;
 }
 
 .articles{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 20vw;
+    width: 12vw;
+    min-height: 8vw;
     list-style: none;
     background-color: rgba(255, 255, 255, 0.842);
     margin-top: 1vw;
@@ -34,4 +43,15 @@ body{
 .article{
     color: black;
     
+}
+
+.articles-ul{
+    width: 40vw;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1vw;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    padding-bottom: 1vw;
 }

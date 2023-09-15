@@ -1,3 +1,9 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 body{
     background-color: #a1a1a1;
 }
@@ -9,7 +15,9 @@ body{
 }
 
 .articles-container{
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
     gap: 1vw;
     justify-content: center;
     grid-template-columns: 20vw 20vw 20vw 20vw;

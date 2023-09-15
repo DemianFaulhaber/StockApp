@@ -77,10 +77,8 @@ function venta(req,res){
 }
 
 function nuevaventa(req, res){
-    const article = req.params.codigo
     req.getConnection((err,conn) =>{
-        conn.query("INSERT INTO venta (name, price, idproducto) SELECT nombre, precio, id FROM productos WHERE codigo = ?", [article])
-        conn.query("SELECT * FROM venta", (err, productos) => {
+        conn.query("SELECT * FROM productos WHERE visible = 1",(err, productos) => {
             if(err){
                 res.json(err)
             }
@@ -90,11 +88,32 @@ function nuevaventa(req, res){
 }
 
 function almacenarventa(req,res){
+    const cash = req.params.cash
+    const amount = req.params.amount    
     req.getConnection((err, conn) => {
-        conn.query("INSERT INTO ventas (total_amount, productos) SELECT price, name FROM venta")
-        conn.query("DELETE FROM venta")
+        conn.query('INSERT INTO venta SET cash = ?, amount = ?', [cash, amount], (err,venta) => {
+            if(err){
+                res.json(err)
+            }
+            res.send({venta})
+        })
     })
-    res.send({response:'OK'})
+}
+
+function getidventa(req,res){
+    req.getConnection((err, conn) => {
+        conn.query('SELECT MAX(idventa) FROM venta', (err, data) =>{
+            res.send(data)
+        })
+    })
+}
+
+function almacenarventa_producto(req,res){
+    const idproducto = req.params.idproducto
+    const idventa = req.params.idventa
+    req.getConnection((err, conn) => {
+        conn.query('INSERT INTO venta_producto SET producto_id = ?, venta_id = ?', [idproducto, idventa])
+    })
 }
 
 function store(req, res){
@@ -132,6 +151,8 @@ module.exports = {
     edit:edit,
     nuevaventa:nuevaventa,
     almacenarventa:almacenarventa,
-    aumentar:aumentar
+    aumentar:aumentar,
+    almacenarventa_producto:almacenarventa_producto,
+    getidventa:getidventa,
 }
 

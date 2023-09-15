@@ -1,13 +1,19 @@
 <tbody>
     <link rel="stylesheet" href="/css/ventas.css">
-        <div class="container text-center">
-            <input type="text" name="codigo" id="codinp">
-            <button id="search">search</button>  
-            <button id="generarventa">next</button>
-        </div>
         <div class="all-container">
-            <div id="content" class="articles-container">
-
+            <div class="articles-container">
+                <ul id="content" class="articles-ul">
+                </ul>
+            </div>
+            <div class="articles-container">
+                <div class="container text-center">
+                    <form action="javascript:void(0);" id="scanform">
+                        <input type="text" name="codigo" id="codinp">
+                        <button id="search" type="submit">search</button>
+                    </form>
+                    <button id="generarventa">next</button>
+                    <input type="checkbox" id="cash">
+                </div>  
             </div>
         </div>
     <script src="/js/ventas.js"></script>
