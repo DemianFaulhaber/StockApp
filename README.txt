@@ -13,4 +13,4 @@ FUNCIONES A IMPLEMENTAR EN LA v1.0:
 1-Calendario con sistema de avisos para ambar partes respecto a turnos.
 2-Sistema de organización de delivery.
 3-Sistema de almacenamiento para la información de pedidos y proveedores.
-4-Implementar sistema opcional de usuarios para procurar la escabilidad.
+4-Implementar sistema opcional de usuarios para procurar la escalabilidad.
