@@ -8,7 +8,7 @@ function printSells(){
             let cash = ''
             const articles = document.createElement("ul")
             articles.className= "articles"
-            if(e.cash == 0){
+            if(e.cash === 0){
                 cash = '<i class="bi bi-credit-card-2-front"></i>'
             }
             else{

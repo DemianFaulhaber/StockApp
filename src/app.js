@@ -39,10 +39,10 @@ app.set('view engine', '.hbs');
 
 app.use(myconnection(mysql, {
     host: 'localhost',
-    user: 'root',
+    user: 'vps3_root',
     password: 'root',
     port: 3306,
-    database: 'stockapp'
+    database: '	vps3_stockapp'
 }, 'single'))
 
 const storage = multer.diskStorage({
