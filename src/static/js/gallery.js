@@ -83,3 +83,18 @@ editall.addEventListener('click', function(){
             }
     }
 })
+
+const inpcsv = document.getElementById("csvinp")
+const formcsv = document.getElementById("formcsv")
+formcsv.addEventListener('submit', function(e){
+    e.preventDefault()
+    let file = inpcsv.files[0]
+    let formdata = new FormData()
+    formdata.append("csvFile",file)
+    fetch("/subir-csv", {
+        method:"POST",
+        body:formdata
+    }).then(r=>r.json()).then(r=>r.forEach(e => {
+        fetch('/editpercode/'+e.codigo+'/'+e.precio)
+    })).then((alert("se actualizaron los precios."))).then(window.location.reload())
+})

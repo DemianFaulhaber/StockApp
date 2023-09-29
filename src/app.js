@@ -6,7 +6,9 @@ const bodyParser = require('body-parser');
 const mysql =  require('mysql');
 const tasksRoutes = require('./routes/tasks')
 const cors = require('cors')
-
+const multer = require('multer')
+const fs = require('fs');
+const csv = require('csv-parser');
 
 const app = express();
 
@@ -43,24 +45,34 @@ app.use(myconnection(mysql, {
     database: 'stockapp'
 }, 'single'))
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'src/static/csv');
+    },
+    filename: (req, file, cb) => {
+        const customFileName = 'updateDB.csv'
+        cb(null, customFileName);
+    },
+})
 
-app.post('/venta', function(req,res){
-    const data = req.body
+const upload = multer({ storage });
 
-    // console.log(data)
-
-    function guardarCodigoEnSesion(req, codigo) {
-        if (!req.session.codigos) {
-            req.session.codigos = [codigo];
-        } else {
-            req.session.codigos.push(codigo);
-        }
+app.post('/subir-csv', upload.single('csvFile'), (req, res) => {
+    console.log(req.file)
+    if (!req.file) {
+        return res.status(400).send('No se subió ningún archivo CSV');
     }
+    const lines = []
 
-    guardarCodigoEnSesion(req, data)
-
-    // console.log(req.session.codigos)
-    res.render('tasks/venta')
+    fs.createReadStream('src/static/csv/updateDB.csv')
+        .pipe(csv())
+        .on('data', (linea) => {
+            lines.push(linea);
+        })
+        .on('end', () => {
+            console.log(lines)
+            res.status(200).send(lines);
+        })
 });
 
 

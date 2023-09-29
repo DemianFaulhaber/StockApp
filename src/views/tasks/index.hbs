@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/articles.css">
+<link rel="stylesheet" href="/css/ventas.css">
 <tbody>
     <div class="container text-center">
         <form action="tasks/search" method="GET">
@@ -6,19 +6,26 @@
         </form>
         <input type="checkbox" id="selectall">
         <button id="edit-selected"><i class="bi bi-pencil-fill"></i></button>
+        <form action="/subir-csv" method="POST" enctype="multipart/form-data" id="formcsv">
+            <label for="csvFile">introducir hoja de calculo:</label>
+            <input type="file" id="csvinp" name="csvFile" accept=".csv"><br>
+            <button type="submit" id="subir_csv">Subir csv</button>
+        </form>
     </div>
     <div class="all-container">
         <div class="articles-container">
-        {{#each productos}}
-            <ul class="articles">
-                <li class="article">codigo:<b>{{codigo}}</b><button class="edit-code" data-id="{{id}}" data-modifier="codigo"><i class="bi bi-pencil-fill"></i></button></li>
-                <li class="article">nombre:<b>{{nombre}} x{{presentacion}}kg</b><button class="edit-name" data-id="{{id}}" data-modifier="nombre"><i class="bi bi-pencil-fill"></i></button></li>
-                <li class="article">precio:<b>${{precio}}</b><button class="edit-price" data-id="{{id}}" data-modifier="precio"><i class="bi bi-pencil-fill"></i></button></li>
-                <li class="article">stock:<b>{{stock}}</b><button class="edit-stock" data-id="{{id}}" data-modifier="stock"><i class="bi bi-pencil-fill"></i></button></li>
-                <li class="article"><button class="trashcan" data-codigo="{{codigo}}"><i class="bi bi-trash"></i></button></li>
-                <li class="article"><input class="select" type="checkbox"  data-id="{{id}}"></input></li>
+            <ul class="articles-ul">
+                {{#each productos}}
+                    <ul class="articles">
+                        <li class="article">codigo:<b>{{codigo}}</b><button class="edit-code" data-id="{{id}}" data-modifier="codigo"><i class="bi bi-pencil-fill"></i></button></li>
+                        <li class="article">nombre:<b>{{nombre}} x{{presentacion}}kg</b><button class="edit-name" data-id="{{id}}" data-modifier="nombre"><i class="bi bi-pencil-fill"></i></button></li>
+                        <li class="article">precio:<b>${{precio}}</b><button class="edit-price" data-id="{{id}}" data-modifier="precio"><i class="bi bi-pencil-fill"></i></button></li>
+                        <li class="article">stock:<b>{{stock}}</b><button class="edit-stock" data-id="{{id}}" data-modifier="stock"><i class="bi bi-pencil-fill"></i></button></li>
+                        <li class="article"><button class="trashcan" data-codigo="{{codigo}}"><i class="bi bi-trash"></i></button></li>
+                        <li class="article"><input class="select" type="checkbox" data-id="{{id}}"></input></li>
+                    </ul>
+                {{/each}}
             </ul>
-        {{/each}}
         </div>
     </div>
     <script src="/js/gallery.js"></script>

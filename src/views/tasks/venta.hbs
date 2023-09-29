@@ -1,5 +1,6 @@
 <tbody>
     <link rel="stylesheet" href="/css/ventas.css">
+        <h1 style="width: 100vw; text-align:center">Ventas</h1>
         <div class="all-container">
             <div class="articles-container">
                 <ul id="content" class="articles-ul">
@@ -7,12 +8,30 @@
             </div>
             <div class="articles-container">
                 <div class="container text-center">
-                    <form action="javascript:void(0);" id="scanform">
-                        <input type="text" name="codigo" id="codinp">
+                    <form action="javascript:void(0);" id="scanform" class="forms">
+                        <label class="label-form" for="codigo">Escaneá acá</label><br>
+                        <input class="input-text" type="text" name="codigo" id="codinp"><br>
                         <button id="search" type="submit">search</button>
                     </form>
-                    <button id="generarventa">next</button>
-                    <input type="checkbox" id="cash">
+                    <form action="javascript:void(0);" id="newproduct" class="forms">
+                        <label class="label-form" for="nombre" style="color: white;text-align:left;width:11vw;">nombre del producto</label><br>
+                        <input class="input-text" type="text" name="nombre" id="nameinp"><br>
+                        <label class="label-form" for="precio" style="color: white;text-align:left;width:11vw;">precio</label><br>
+                        <input class="input-text" type="text" name="precio" id="priceinp"><br>
+                        <button type="submit" id="submitNewProduct">submit</button>
+                    </form>
+                    <div class="payment-method">
+                        <span class="cashSpan" id="cashSpan">
+                            <i class="bi bi-cash" id="cashButton"></i>
+                        </span>
+                        <span class="othersSpan">
+                            <i class="bi bi-credit-card-2-front" id="othersButton"></i>
+                        </span>
+                        <input type="radio" class="radiobutton" name="paymentMethod" id="cashRadio">
+                        <input type="radio" class="radiobutton" name="paymentMethod" id="othersRadio">
+                    </div>
+                    <button id="generarventa" disabled>next</button>
+                    <h1 id="price" style="color:white">TOTAL:$0</h1>
                 </div>  
             </div>
         </div>

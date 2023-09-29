@@ -6,6 +6,7 @@ const productos = []
 const selected_products = []
 const cashbox = document.getElementById("cash")
 let amount = 0
+let cash = 0
 
 fetch('nuevaventa/')
     .then(r => (r.json()))
@@ -24,22 +25,27 @@ function selectproduct(codigo){
 
 function printproducts(arr){
     content.innerHTML = ''
+    const price = document.getElementById("price")
     amount = 0
     arr.forEach(e => {
+        precioreal = e.precio * 1
+        if(e.multiplier != null){
+            precioreal = (e.precio*e.multiplier/100) + e.precio * 1
+        }
         const nombre = document.createElement('li')
         const precio = document.createElement('li')
         const list = document.createElement ('ul')
         nombre.textContent = e.nombre
-        precio.textContent = "$" + e.precio
+        precio.textContent = "$" + precioreal
         list.classList = 'articles'
         nombre.classList = "article"
         precio.classList = "article"
         list.appendChild(nombre)
         list.appendChild(precio)
         content.appendChild(list)
-        amount += e.precio
+        amount += precioreal
     })
-    console.log(amount)
+    price.textContent = "TOTAL $" + amount.toFixed(2)
 }
 
 scanform.addEventListener('submit', function(){
@@ -49,10 +55,6 @@ scanform.addEventListener('submit', function(){
 })
 
 generarventa.addEventListener('click', function(){
-    let cash = 0
-    if(cashbox.checked == true){
-        cash = 1
-    }
     fetch('/almacenarventa/'+cash+'/'+amount)
     .then
         (fetch('/getidventa')
@@ -62,9 +64,72 @@ generarventa.addEventListener('click', function(){
         .then(r=>r[0])
         .then(r=> {
             selected_products.forEach(e => {
-                console.log(e)
-                fetch('/almacenarventa_producto/'+e.id+'/'+r)
+                if(e.id != undefined){
+                    console.log(e.id)
+                    fetch('/almacenarventa_producto/'+e.id+'/'+r)
+                }
             })
         }))
+    selected_products.forEach(e => {
+        newstock = e.stock - 1
+        if(e.id != undefined){
+            fetch('/edit/'+e.id+'/stock/'+newstock).then(r=>r.json()).then(r=>console.log(r))
+        }
+    })
+    const resumen_compra = []
+    selected_products.forEach(e=> {
+        if(!resumen_compra.find(r => r.id == e.id)){
+            resumen_compra.push({
+                ...e,
+                cantidad:selected_products.filter(sp=>sp.id == e.id).length
+            })
+        }
+    })
+    alerta = ""
+    resumen_compra.forEach(e => {
+        precioreal = e.precio * 1
+        if(e.multiplier != null){
+            precioreal = (e.precio*e.multiplier/100) + e.precio * 1
+        }
+        alerta += `x ${e.cantidad} ${e.nombre} $${precioreal} \n`
+    })
+    alert("Venta realizada!\n" + alerta + "Total: $" +amount)
+    console.log(resumen_compra)
+})
 
+const newproductform = document.getElementById("newproduct")
+const nameinp = document.getElementById("nameinp")
+const priceinp = document.getElementById("priceinp")
+newproductform.addEventListener('submit', function(){
+    const producto = {
+        nombre: nameinp.value,
+        precio: priceinp.value,
+    }
+    console.log(producto)
+    selected_products.push(producto);
+    printproducts(selected_products)
+})
+
+const cashButton = document.getElementById("cashButton")
+const othersButton = document.getElementById("othersButton")
+const cashRadio = document.getElementById("cashRadio")
+const othersRadio = document.getElementById("othersRadio")
+cashButton.addEventListener("click", function(){
+    if(cashRadio.checked == false){
+        cashRadio.checked = true
+        cashButton.style.color = 'green'
+        othersButton.style.color = ""
+        generarventa.disabled = false
+        cash = 1
+    }
+})
+
+othersButton.addEventListener("click", function(){
+    if(othersRadio.checked == false){
+        othersRadio.checked = true
+        othersButton.style.color = 'blue'
+        cashButton.style.color = ""
+        generarventa.disabled = false
+        cash = 0
+    }
 })

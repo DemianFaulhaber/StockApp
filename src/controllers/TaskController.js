@@ -1,6 +1,7 @@
 const { json } = require('body-parser');
 const express = require('express')
 
+
 const app = express()
 
 function index(req, res){
@@ -18,7 +19,7 @@ function search(req, res){
     const nombre = req.query.nombre;
     console.log(req.query)
     req.getConnection((err,conn) => {
-        conn.query("SELECT * FROM productos WHERE visible = 1 AND codigo = ? OR nombre LIKE " + "'"+"%"+nombre+"%"+"'", [nombre], (err, productos) => {
+        conn.query("SELECT * FROM productos WHERE visible = 1 AND codigo = ? OR nombre LIKE \"%"+nombre+"%\"", [nombre], (err, productos) => {
             if(err){
                 res.json(err);
             }
@@ -47,6 +48,14 @@ function edit(req,res){
     res.send({respones:'OK'})
 }
 
+function editpercode(req,res){
+    const article = req.params.codigo
+    const precio = req.params.precio
+    req.getConnection((err,conn) =>{
+        conn.query("UPDATE productos SET precio = ? WHERE codigo = ?", [precio, article])
+    })
+    res.send({respones:'OK'})
+}
 function aumentar(req,res){
     const article = req.params.id
     const info = req.params.info
@@ -141,6 +150,23 @@ function store(req, res){
     })
 }
 
+function searchVentas(req, res){
+    const table = req.params.table
+    req.getConnection((err, conn) => {
+        conn.query('SELECT * FROM ??', [table], (err, data) =>{
+            if(err){
+                res.json(err)
+            }
+            res.send(data)
+        })
+    })
+}
+
+function verventas(req, res){
+    res.render("tasks/verventas")
+}
+
+
 module.exports = {
     index: index,
     search: search,
@@ -154,5 +180,8 @@ module.exports = {
     aumentar:aumentar,
     almacenarventa_producto:almacenarventa_producto,
     getidventa:getidventa,
+    searchVentas:searchVentas,
+    editpercode:editpercode,
+    verventas:verventas,
 }
 

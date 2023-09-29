@@ -55,3 +55,38 @@ body{
     justify-content: center;
     padding-bottom: 1vw;
 }
+
+.label-form{
+    color: white;
+    text-align:left;
+    width:11vw;
+}
+
+.input-text{
+    width: 11vw;
+}
+
+.forms{
+    height: 10vw;
+    /* background-color: gray; */
+}
+
+.payment-method{
+    color: white;
+    font-size: 1.5vw;
+    display: inline;
+}
+
+.cashSpan:hover {
+    color: green!important;
+    cursor: pointer;
+}
+
+.othersSpan:hover {
+    color: blue;
+    cursor: pointer;
+}
+
+.radiobutton{
+    display: none;
+}
