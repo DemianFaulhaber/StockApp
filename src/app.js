@@ -41,8 +41,8 @@ app.use(myconnection(mysql, {
     host: 'localhost',
     user: 'vps3_root',
     password: 'root',
-    port: 3306,
-    database: '	vps3_stockapp'
+    port: 5095,
+    database: 'vps3_stockapp'
 }, 'single'))
 
 const storage = multer.diskStorage({
