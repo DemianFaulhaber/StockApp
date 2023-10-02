@@ -40,7 +40,7 @@ app.set('view engine', '.hbs');
 app.use(myconnection(mysql, {
     host: '127.0.0.1',
     user: 'root',
-    password: 'root',
+    password: 'Root@123',
     port: 3306,
     database: 'stockapp'
 }, 'single'))
