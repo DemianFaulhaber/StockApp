@@ -39,8 +39,8 @@ app.set('view engine', '.hbs');
 
 app.use(myconnection(mysql, {
     host: '127.0.0.1',
-    user: 'admin',
-    password: 'Root@123',
+    user: 'root',
+    password: 'root',
     port: 3306,
     database: 'StockApp'
 }, 'single'))
