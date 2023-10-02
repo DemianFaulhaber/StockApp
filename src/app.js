@@ -38,10 +38,10 @@ app.engine('.hbs', engine({
 app.set('view engine', '.hbs');
 
 app.use(myconnection(mysql, {
-    host: 'localhost',
+    host: '127.0.0.1',
     user: 'vps3_root',
     password: 'root',
-    port: 5095,
+    port: 3306,
     database: 'vps3_stockapp'
 }, 'single'))
 
