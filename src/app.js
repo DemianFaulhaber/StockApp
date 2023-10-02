@@ -42,7 +42,7 @@ app.use(myconnection(mysql, {
     user: 'root',
     password: 'root',
     port: 3306,
-    database: 'StockApp'
+    database: 'stockapp'
 }, 'single'))
 
 const storage = multer.diskStorage({
