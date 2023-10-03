@@ -42,11 +42,11 @@ body{
 
 .article{
     color: black;
-    
+    font-size: 0.85vw;
 }
 
 .articles-ul{
-    width: 40vw;
+    /* width: 40vw; */
     display: flex;
     flex-wrap: wrap;
     gap: 1vw;
@@ -71,6 +71,10 @@ body{
     /* background-color: gray; */
 }
 
+#newproduct{
+    margin-bottom: 7vw;
+}
+
 .payment-method{
     color: white;
     font-size: 1.5vw;
@@ -89,4 +93,20 @@ body{
 
 .radiobutton{
     display: none;
+}
+
+@media(max-width:1100px){
+    .articles-container{
+        width: 80vw;
+    }
+    .articles-ul{
+        gap:5vw;
+    }
+    .articles{
+        width: 20vw;
+        min-height: 15vw;
+    }
+    .article{
+        font-size: 1.4vw;
+    }
 }
