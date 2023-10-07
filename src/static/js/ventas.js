@@ -35,7 +35,12 @@ function printproducts(arr){
     arr.forEach(e => {
         precioreal = e.precio * 1
         if(e.multiplier != null){
-            precioreal = (e.precio*e.multiplier/100) + e.precio * 1
+            let multi = e.multiplier
+            if(cash === 0){
+                multi += 5
+            }
+            console.log(multi)
+            precioreal = (e.precio*multi/100) + e.precio * 1
         }
         const nombre = document.createElement('li')
         const precio = document.createElement('li')
@@ -127,6 +132,7 @@ cashButton.addEventListener("click", function(){
         generarventa.disabled = false
         cash = 1
     }
+    printproducts(selected_products)
 })
 
 othersButton.addEventListener("click", function(){
@@ -137,4 +143,5 @@ othersButton.addEventListener("click", function(){
         generarventa.disabled = false
         cash = 0
     }
+    printproducts(selected_products)
 })
