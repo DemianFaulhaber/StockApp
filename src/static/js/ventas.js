@@ -7,6 +7,11 @@ const selected_products = []
 const cashbox = document.getElementById("cash")
 let amount = 0
 let cash = 0
+const tiempo = Date.now()
+const hoy = new Date(tiempo)
+const ISO = hoy.toISOString()
+const slice = ISO.slice(0, 10)
+const formateado = slice.replaceAll('-', '')
 
 fetch('nuevaventa/')
     .then(r => (r.json()))
@@ -55,7 +60,7 @@ scanform.addEventListener('submit', function(){
 })
 
 generarventa.addEventListener('click', function(){
-    fetch('/almacenarventa/'+cash+'/'+amount)
+    fetch('/almacenarventa/'+cash+'/'+amount+'/'+formateado)
     .then
         (fetch('/getidventa')
         .then(r=>r.json())

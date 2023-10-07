@@ -16,7 +16,7 @@ function printSells(){
             }
             const li = document.createElement("li");
             li.className = "article";
-            desc = `<li style="font-size:1.5rem;">Total: $${e.amount}</li><li style="font-size:1.5rem;">${cash}</li>`;
+            desc = `<li style="font-size:1.5rem;">${e.date.slice(0,10)}</li><li style="font-size:1.5rem;">Total: $${e.amount}</li><li style="font-size:1.5rem;">${cash}</li>`;
 
             li.innerHTML = desc;
             articles.appendChild(li)

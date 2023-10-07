@@ -99,8 +99,9 @@ function nuevaventa(req, res){
 function almacenarventa(req,res){
     const cash = req.params.cash
     const amount = req.params.amount    
+    const date = req.params.date
     req.getConnection((err, conn) => {
-        conn.query('INSERT INTO venta SET cash = ?, amount = ?', [cash, amount], (err,venta) => {
+        conn.query('INSERT INTO venta SET cash = ?, amount = ?, datetime = ?', [cash, amount, date], (err,venta) => {
             if(err){
                 res.json(err)
             }
