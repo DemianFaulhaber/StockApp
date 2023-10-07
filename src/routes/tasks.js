@@ -12,7 +12,7 @@ router.post('/agregar', TaskController.store);
 router.get('/erase/:codigo', TaskController.erase);
 router.get('/edit/:id/:modifier/:info', TaskController.edit);
 router.get('/nuevaventa/', TaskController.nuevaventa);
-router.get('/almacenarventa/:cash/:amount', TaskController.almacenarventa);
+router.get('/almacenarventa/:cash/:amount/:date', TaskController.almacenarventa);
 router.get('/aumentar/:id/:info', TaskController.aumentar);
 router.get('/getidventa/', TaskController.getidventa);
 router.get('/almacenarventa_producto/:idproducto/:idventa', TaskController.almacenarventa_producto);
