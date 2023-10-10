@@ -16,7 +16,8 @@ router.get('/almacenarventa/:cash/:amount/:date', TaskController.almacenarventa)
 router.get('/aumentar/:id/:info', TaskController.aumentar);
 router.get('/getidventa/', TaskController.getidventa);
 router.get('/almacenarventa_producto/:idproducto/:idventa', TaskController.almacenarventa_producto);
-router.get('/editpercode/:codigo/:precio', TaskController.editpercode);
+router.get('/editpreciopercode/:codigo/:precio', TaskController.editpreciopercode);
+router.get('/editstockpercode/:codigo/:stock', TaskController.editstockpercode);
 router.get('/verventas', TaskController.verventas);
 router.get('/searchVentas/:table', TaskController.searchVentas);
 

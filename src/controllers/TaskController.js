@@ -48,14 +48,28 @@ function edit(req,res){
     res.send({respones:'OK'})
 }
 
-function editpercode(req,res){
+function editpreciopercode(req,res){
     const article = req.params.codigo
     const precio = req.params.precio
     req.getConnection((err,conn) =>{
-        conn.query("UPDATE productos SET precio = ? WHERE codigo = ?", [precio, article])
+        conn.query("UPDATE productos SET precio = ? WHERE codigo = ?", [precio, article], (err) => {
+            if(err){
+                res.send(err)
+            }
+        })
     })
     res.send({respones:'OK'})
 }
+
+function editstockpercode(req,res){
+    const article = req.params.codigo
+    const stock = req.params.stock
+    req.getConnection((err,conn) =>{
+        conn.query("UPDATE productos SET stock = ? WHERE codigo = ?", [stock, article])
+    })
+    res.send({respones:'OK'})
+}
+
 function aumentar(req,res){
     const article = req.params.id
     const info = req.params.info
@@ -182,7 +196,8 @@ module.exports = {
     almacenarventa_producto:almacenarventa_producto,
     getidventa:getidventa,
     searchVentas:searchVentas,
-    editpercode:editpercode,
+    editpreciopercode:editpreciopercode,
+    editstockpercode:editstockpercode,
     verventas:verventas,
 }
 

@@ -56,45 +56,39 @@ for(let stockPencil of stockPencils){
         }
     })
 }
-const selectall = document.getElementById("selectall")
-const selects = document.getElementsByClassName("select")
-selectall.addEventListener('click', function(){
-    if(selectall.checked === true){
-        for(let select of selects){
-            select.checked = true
-    }
-        }
-    if(selectall.checked === false){
-        for(let select of selects){
-            select.checked = false
-        }
-    }
-})
-const editall = document.getElementById("edit-selected")
-editall.addEventListener('click', function(){
-    let percent = prompt("inserte el porcentaje a aumentar")
-    for(let selected of selects){
-        if(selected.checked === true){
-            id = selected.dataset.id
-                if(percent.length > 0){
-                    fetch("/aumentar/"+id+"/"+percent).then(window.location.reload()).then(r => console.log(r.json()))
-                    .catch(e => console.log(e))
-                }
-            }
-    }
-})
 
+const precioradio = document.getElementById("precioradio")
+const stockradio = document.getElementById("stockradio")
+const subircsv = document.getElementById("subir_csv")
 const inpcsv = document.getElementById("csvinp")
 const formcsv = document.getElementById("formcsv")
+
+precioradio.addEventListener("change", function() {
+    subircsv.disabled = false
+})
+stockradio.addEventListener("change", function() {
+    subircsv.disabled = false
+})
+
 formcsv.addEventListener('submit', function(e){
     e.preventDefault()
     let file = inpcsv.files[0]
     let formdata = new FormData()
     formdata.append("csvFile",file)
-    fetch("/subir-csv", {
-        method:"POST",
-        body:formdata
-    }).then(r=>r.json()).then(r=>r.forEach(e => {
-        fetch('/editpercode/'+e.codigo+'/'+e.precio)
-    })).then((alert("se actualizaron los precios."))).then(window.location.reload())
+    if(precioradio.checked){
+        fetch("/subir-csv", {
+            method:"POST",
+            body:formdata
+        }).then(r=>r.json()).then(r=>r.forEach(e => {
+            fetch('/editpreciopercode/'+e.codigo+'/'+e.precio)
+        })).then((alert("se actualizaron los precios."))).then(window.location.reload())
+    }
+    else{
+        fetch("/subir-csv", {
+            method:"POST",
+            body:formdata
+        }).then(r=>r.json()).then(r=>r.forEach(e => {
+            fetch('/editstockpercode/'+e.codigo+'/'+e.stock)
+        })).then((alert("se actualizó el stock."))).then(window.location.reload())
+    }
 })

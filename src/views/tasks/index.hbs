@@ -10,7 +10,9 @@
         <form action="/subir-csv" method="POST" enctype="multipart/form-data" id="formcsv">
             <label for="csvFile">introducir hoja de calculo:</label>
             <input type="file" id="csvinp" name="csvFile" accept=".csv"><br>
-            <button type="submit" id="subir_csv">Subir csv</button>
+            <input type="radio" id="precioradio" name="modifierSelect">actualizar precios</button>
+            <input type="radio" id="stockradio" name="modifierSelect">actualizar stock</button>
+            <button type="submit" id="subir_csv" disabled>submit</button>
         </form>
     </div>
     <div class="all-container">
