@@ -145,3 +145,4 @@ othersButton.addEventListener("click", function(){
     }
     printproducts(selected_products)
 })
+
