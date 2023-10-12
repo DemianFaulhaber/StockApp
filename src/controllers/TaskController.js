@@ -10,6 +10,16 @@ function index(req, res){
             if(err){
                 res.json(err);
             }
+
+            productos.forEach(e => {
+                vcomprar = e.objetivo - e.stock
+                vprecioventa = (e.precio*e.multiplier/100) + e.precio * 1 
+                vgranel = (e.precio*50/100) + e.precio * 1
+                e.precioventa = vprecioventa
+                e.granel = vgranel
+                e.comprar = vcomprar
+                console.log(e)
+            });
             res.render('tasks/index', { productos });
         });
     });
