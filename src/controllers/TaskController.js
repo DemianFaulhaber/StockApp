@@ -14,7 +14,7 @@ function index(req, res){
             productos.forEach(e => {
                 vcomprar = e.objetivo - e.stock
                 vprecioventa = (e.precio*e.multiplier/100) + e.precio * 1 
-                vgranel = (e.precio*50/100) + e.precio * 1
+                vgranel = ((e.precio*50/100) + e.precio * 1)/e.presentacion
                 e.precioventa = vprecioventa
                 e.granel = vgranel
                 e.comprar = vcomprar
