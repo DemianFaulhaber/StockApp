@@ -26,30 +26,5 @@
             </ul>
         </div>
     </div>
-    {{!-- <script src="/js/gallery"></script> --}}
-    <script>
-        const selectall = document.getElementById("selectall")
-        const selects = document.getElementsByClassName("select")
-        const comps = document.getElementsByClassName("comps")
-        selectall.addEventListener('click', function(){
-            if(selectall.checked === true){
-                for(let select of selects){
-                    select.checked = true
-            }
-                }
-            if(selectall.checked === false){
-                for(let select of selects){
-                    select.checked = false
-                }
-            }
-        })
-        for(let comp of comps){
-            comp.addEventListener('click', function(){
-                const price = comp.dataset.precio
-                let newprice = prompt("inserte el nuevo precio:")
-                let percentdif = ((newprice - price) / price) * 100
-                alert("el producto a aumentado un "+percentdif+"%")
-            })
-        }
-    </script>
+    <script src="/js/search.js"></script>
 </tbody>
