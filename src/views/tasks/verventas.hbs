@@ -1,11 +1,32 @@
 <tbody>
     <link rel="stylesheet" href="/css/ventas.css">
-        <div class="all-container">
-            <div class="articles-container">
-                <ul class="articles-ul" id="articles_ul">
-                </ul>
-            </div>
+
+
+    <form action="" id="dateSearch" class="dateSelector">
+        <P>buscar fecha:</P>
+        <p>Desde</br><input type="date" id="valueDateFrom"></p>
+        <p>Hasta</br><input type="date" id="valueDateTo"></p>
+        <button type="submit">buscar</button>
+        <p id="total" style="text-align: center;"></p>
+        <div class="payment-method" id="paymentMethod" style="display: none;">
+            <span class="cashSpan" id="cashSpan">
+                <i class="bi bi-cash" id="cashButton"></i>
+            </span>
+            <span class="othersSpan">
+                <i class="bi bi-credit-card-2-front" id="othersButton"></i>
+            </span>
+            <input type="radio" class="radiobutton" name="paymentMethod" id="cashRadio">
+            <input type="radio" class="radiobutton" name="paymentMethod" id="othersRadio">
         </div>
+    </form>
+    <div class="all-container">
+        <div class="articles-container">
+            <ul class="articles-ul" id="articles_ul">
+            </ul>
+        </div>
+    </div>
+
+
     <script src="/js/verventas.js"></script>
 </tbody>
 

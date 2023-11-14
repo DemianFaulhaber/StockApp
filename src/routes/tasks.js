@@ -20,6 +20,7 @@ router.get('/editpreciopercode/:codigo/:precio', TaskController.editpreciopercod
 router.get('/editstockpercode/:codigo/:stock', TaskController.editstockpercode);
 router.get('/verventas', TaskController.verventas);
 router.get('/searchVentas/:table', TaskController.searchVentas);
+router.get('/filterbyday/:from/:to', TaskController.filterbyday)
 
 module.exports = router;
 

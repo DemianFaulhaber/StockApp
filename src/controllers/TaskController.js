@@ -39,6 +39,21 @@ function search(req, res){
     });
 }
 
+function filterbyday(req, res){
+    const from = req.params.from;
+    const to = req.params.to;
+    console.log(from)
+    console.log(to)
+    req.getConnection((err,conn) => {
+        conn.query("SELECT * FROM stockapp.venta WHERE (date BETWEEN ? and ?)", [from, to], (err, ventas) => {
+            if(err){
+                res.json(err);
+            }
+            res.send({ventas})
+        });
+    });
+}
+
 function erase(req, res){
     const codigo = req.params.codigo
         req.getConnection((err, conn) =>{
@@ -102,6 +117,7 @@ function aumentar(req,res){
 }
 
 function agregar(req, res){
+
     res.render('tasks/agregar');
 }
 
@@ -209,5 +225,6 @@ module.exports = {
     editpreciopercode:editpreciopercode,
     editstockpercode:editstockpercode,
     verventas:verventas,
+    filterbyday:filterbyday
 }
 

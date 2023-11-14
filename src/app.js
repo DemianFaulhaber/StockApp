@@ -38,9 +38,9 @@ app.engine('.hbs', engine({
 app.set('view engine', '.hbs');
 
 app.use(myconnection(mysql, {
-    host: '127.0.0.1',
+    host: 'localhost',
     user: 'root',
-    password: 'Root@123',
+    password: process.env.HOMEDRIVE === "C:" ? 'root' : 'Root@123',
     port: 3306,
     database: 'stockapp'
 }, 'single'))
