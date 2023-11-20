@@ -62,6 +62,13 @@ function erase(req, res){
         res.send({response:'OK'})
 }
 
+function eraseSell(req, res){
+    const idventa = req.params.idventa
+        req.getConnection((err, conn) =>{
+            conn.query("DELETE FROM venta WHERE idventa = ?", [idventa])
+        })
+        res.send({response:'OK'})
+}
 
 function edit(req,res){
     const article = req.params.id
@@ -225,6 +232,7 @@ module.exports = {
     editpreciopercode:editpreciopercode,
     editstockpercode:editstockpercode,
     verventas:verventas,
-    filterbyday:filterbyday
+    filterbyday:filterbyday,
+    eraseSell:eraseSell,
 }
 

@@ -21,6 +21,7 @@ router.get('/editstockpercode/:codigo/:stock', TaskController.editstockpercode);
 router.get('/verventas', TaskController.verventas);
 router.get('/searchVentas/:table', TaskController.searchVentas);
 router.get('/filterbyday/:from/:to', TaskController.filterbyday)
+router.get('/eraseSell/:idventa', TaskController.eraseSell)
 
 module.exports = router;
 

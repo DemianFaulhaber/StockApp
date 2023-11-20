@@ -28,11 +28,14 @@ function selectproduct(codigo){
     }
 }
 
+
 function printproducts(arr){
     content.innerHTML = ''
     const price = document.getElementById("price")
     amount = 0
+    dataubi = 0
     arr.forEach(e => {
+        dataubi++
         precioreal = e.precio * 1
         if(e.multiplier != null){
             let multi = e.multiplier
@@ -44,18 +47,22 @@ function printproducts(arr){
         }
         const nombre = document.createElement('li')
         const precio = document.createElement('li')
+        const trashcan = document.createElement('li')
         const list = document.createElement ('ul')
         nombre.textContent = e.nombre
         precio.textContent = "$" + precioreal
+        trashcan.innerHTML = `<button class="trashcan" data-ubi="${dataubi}"><i class="bi bi-trash"></i></button>`
         list.classList = 'articles'
         nombre.classList = "article"
         precio.classList = "article"
         list.appendChild(nombre)
         list.appendChild(precio)
+        list.appendChild(trashcan)
         content.appendChild(list)
         amount += precioreal
     })
     price.textContent = "TOTAL $" + amount.toFixed(2)
+    trashcans()
 }
 
 scanform.addEventListener('submit', function(){
@@ -115,7 +122,6 @@ newproductform.addEventListener('submit', function(){
         nombre: nameinp.value,
         precio: priceinp.value,
     }
-    console.log(producto)
     selected_products.push(producto);
     printproducts(selected_products)
 })
@@ -146,3 +152,11 @@ othersButton.addEventListener("click", function(){
     printproducts(selected_products)
 })
 
+function trashcans(){
+    const trash = document.querySelectorAll(".trashcan")
+    trash.forEach(e=>e.addEventListener("click", function(){
+            position = e.dataset.ubi
+            selected_products.splice(position - 1, 1)
+            printproducts(selected_products)
+    }))
+}

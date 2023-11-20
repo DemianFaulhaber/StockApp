@@ -4,7 +4,7 @@ const articles_ul = document.getElementById("articles_ul")
 let cash = 0 
 
 fetch('/searchVentas/venta_producto').then(r => r.json()).then(r => data_vp.push(r))
-fetch('/searchVentas/venta').then(r=>r.json()).then(r =>data_v.push(r)).then(r=>printSells())
+fetch('/searchVentas/venta').then(r=>r.json()).then(r =>data_v.push(r)).then(r=>printSells()).then(r=>trashcans())
 
 function printSells(){
     // articles_ul.innerHTML = ''
@@ -24,7 +24,9 @@ function printSells(){
             }
             const li = document.createElement("li");
             li.className = "article";
-            desc = `<li style="font-size:1.5rem;">${dia+"-"+mes+"-"+año}</li><li style="font-size:1.5rem;">Total: $${e.amount}</li><li style="font-size:1.5rem;">${cash}</li>`;
+            desc = `<li style="font-size:1.5rem;">${dia+"-"+mes+"-"+año}</li><li style="font-size:1.5rem;">Total: $${e.amount}</li><li style="font-size:1.5rem;">${cash}</li>
+            <li class="d-flex justify-content-center "><button class="trashcan" data-codigo="${e.idventa}"><i class="bi bi-trash"></i></button></li>
+            `;
             
             li.innerHTML = desc;
             articles.appendChild(li)
@@ -52,7 +54,9 @@ function newPrint(){
                 }
                 const li = document.createElement("li");
                 li.className = "article";
-                desc = `<li style="font-size:1.5rem;">${dia+"-"+mes+"-"+año}</li><li style="font-size:1.5rem;">Total: $${e.amount}</li><li style="font-size:1.5rem;">${cash}</li>`;
+                desc = `<li style="font-size:1.5rem;">${dia+"-"+mes+"-"+año}</li><li style="font-size:1.5rem;">Total: $${e.amount}</li><li style="font-size:1.5rem;">${cash}</li>
+                <li class="d-flex justify-content-center "><button class="trashcan" data-codigo="${e.id}"><i class="bi bi-trash"></i></button></li>
+                `;
 
                 li.innerHTML = desc;
                 articles.appendChild(li)
@@ -83,7 +87,9 @@ function printByMethod(){
                         }
                         const li = document.createElement("li");
                         li.className = "article";
-                        desc = `<li style="font-size:1.5rem;">${dia+"-"+mes+"-"+año}</li><li style="font-size:1.5rem;">Total: $${e.amount}</li><li style="font-size:1.5rem;">${cash}</li>`;
+                        desc = `<li style="font-size:1.5rem;">${dia+"-"+mes+"-"+año}</li><li style="font-size:1.5rem;">Total: $${e.amount}</li><li style="font-size:1.5rem;">${cash}</li>
+                        <li class="d-flex justify-content-center "><button class="trashcan" data-codigo="${e.id}"><i class="bi bi-trash"></i></button></li>
+                        `;
         
                         li.innerHTML = desc;
                         articles.appendChild(li)
@@ -104,6 +110,7 @@ function printByMethod(){
                         let cash = ''
                         const articles = document.createElement("ul")
                         articles.className= "articles"
+                        
                         if(e.cash === 0){
                                 cash = '<i class="bi bi-credit-card-2-front"></i>'
                         }
@@ -112,7 +119,11 @@ function printByMethod(){
                         }
                         const li = document.createElement("li");
                         li.className = "article";
-                        desc = `<li style="font-size:1.5rem;">${dia+"-"+mes+"-"+año}</li><li style="font-size:1.5rem;">Total: $${e.amount}</li><li style="font-size:1.5rem;">${cash}</li>`;
+                            desc = `
+                            <li style="font-size:1.5rem;">${dia+"-"+mes+"-"+año}</li>
+                            <li style="font-size:1.5rem;">Total: $${e.amount}</li><li style="font-size:1.5rem;">${cash}</li>
+                            <li class="d-flex justify-content-center "><button class="trashcan" data-codigo="${e.id}"><i class="bi bi-trash"></i></button></li>
+                            `;
         
                         li.innerHTML = desc;
                         articles.appendChild(li)
@@ -178,3 +189,16 @@ othersButton.addEventListener("click", function(){
     }
     printByMethod()
 })
+
+function trashcans(){
+    const trashcans = document.getElementsByClassName("trashcan")
+    for(let trashcan of trashcans){
+        const idventa = trashcan.dataset.codigo
+        trashcan.addEventListener("click", function(){
+            if(confirm("queres anular esta venta?")){
+                fetch("/eraseSell/"+idventa).then(response => response.json()).then(window.location.reload())
+                .catch(e => console.log(e))
+            }
+        })
+    }
+}
